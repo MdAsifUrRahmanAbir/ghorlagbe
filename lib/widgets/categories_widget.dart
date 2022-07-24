@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ghorlagbe/inner_screens/cat_screen.dart';
 import 'package:ghorlagbe/widgets/text_widget.dart';
@@ -35,9 +36,13 @@ class CategoriesWidget extends StatelessWidget {
             width: 2,
           ),
         ),
-        child: Column(children: [
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
           // Container for the image
           Container(
+            padding: const EdgeInsets.all(10),
             height: _screenWidth * 0.3,
             width: _screenWidth * 0.3,
             decoration: BoxDecoration(

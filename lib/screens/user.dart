@@ -85,159 +85,161 @@ class _UserScreenState extends State<UserScreen> {
     final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
     return Scaffold(
         body: LoadingManager(
-      isLoading: _isLoading,
-      child: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                RichText(
-                  text: TextSpan(
-                    text: 'Hi,  ',
-                    style: const TextStyle(
-                      color: Colors.cyan,
-                      fontSize: 27,
-                      fontWeight: FontWeight.bold,
+          isLoading: _isLoading,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/images/ghor-chai-logo.png', height: 100, width: double.infinity, fit: BoxFit.contain,),
+                    const SizedBox(
+                      height: 10,
                     ),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: _name == null ? 'user' : _name,
-                          style: TextStyle(
-                            color: color,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              print('My name is pressed');
-                            }),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextWidget(
-                  text: _email == null ? 'Email' : _email!,
-                  color: color,
-                  textSize: 18,
-                  // isTitle: true,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Divider(
-                  thickness: 2,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                _listTiles(
-                  title: 'Address 2',
-                  subtitle: address,
-                  icon: IconlyLight.profile,
-                  onPressed: () async {
-                    await _showAddressDialog();
-                  },
-                  color: color,
-                ),
-                _listTiles(
-                  title: 'Orders',
-                  icon: IconlyLight.bag,
-                  onPressed: () {
-                    GlobalMethods.navigateTo(
-                        ctx: context, routeName: OrdersScreen.routeName);
-                  },
-                  color: color,
-                ),
-                _listTiles(
-                  title: 'Wishlist',
-                  icon: IconlyLight.heart,
-                  onPressed: () {
-                    GlobalMethods.navigateTo(
-                        ctx: context, routeName: WishlistScreen.routeName);
-                  },
-                  color: color,
-                ),
-                _listTiles(
-                  title: 'Viewed',
-                  icon: IconlyLight.show,
-                  onPressed: () {
-                    GlobalMethods.navigateTo(
-                        ctx: context,
-                        routeName: ViewedRecentlyScreen.routeName);
-                  },
-                  color: color,
-                ),
-                _listTiles(
-                  title: 'Forget password',
-                  icon: IconlyLight.unlock,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ForgetPasswordScreen(),
-                      ),
-                    );
-                  },
-                  color: color,
-                ),
-                SwitchListTile(
-                  title: TextWidget(
-                    text: themeState.getDarkTheme ? 'Dark mode' : 'Light mode',
-                    color: color,
-                    textSize: 18,
-                    // isTitle: true,
-                  ),
-                  secondary: Icon(themeState.getDarkTheme
-                      ? Icons.dark_mode_outlined
-                      : Icons.light_mode_outlined),
-                  onChanged: (bool value) {
-                    setState(() {
-                      themeState.setDarkTheme = value;
-                    });
-                  },
-                  value: themeState.getDarkTheme,
-                ),
-                _listTiles(
-                  title: user == null ? 'Login' : 'Logout',
-                  icon: user == null ? IconlyLight.login : IconlyLight.logout,
-                  onPressed: () {
-                    if (user == null) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Hi,  ',
+                        style: const TextStyle(
+                          color: Colors.cyan,
+                          fontSize: 27,
+                          fontWeight: FontWeight.bold,
                         ),
-                      );
-                      return;
-                    }
-                    GlobalMethods.warningDialog(
-                        title: 'Sign out',
-                        subtitle: 'Do you wanna sign out?',
-                        fct: () async {
-                          await authInstance.signOut();
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: _name ?? 'Guest',
+                              style: TextStyle(
+                                color: color,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  print('My name is pressed');
+                                }),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TextWidget(
+                      text: _email == null ? 'Email' : _email!,
+                      color: color,
+                      textSize: 18,
+                      // isTitle: true,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Divider(
+                      thickness: 2,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _listTiles(
+                      title: 'Address',
+                      subtitle: address,
+                      icon: IconlyLight.profile,
+                      onPressed: () async {
+                        await _showAddressDialog();
+                      },
+                      color: color,
+                    ),
+                    _listTiles(
+                      title: 'My Ads',
+                      icon: Icons.house_outlined,
+                      onPressed: () {
+                        GlobalMethods.navigateTo(
+                            ctx: context, routeName: OrdersScreen.routeName);
+                      },
+                      color: color,
+                    ),
+                    _listTiles(
+                      title: 'Favourite Home',
+                      icon: IconlyLight.heart,
+                      onPressed: () {
+                        GlobalMethods.navigateTo(
+                            ctx: context, routeName: WishlistScreen.routeName);
+                      },
+                      color: color,
+                    ),
+                    _listTiles(
+                      title: 'Viewed',
+                      icon: IconlyLight.show,
+                      onPressed: () {
+                        GlobalMethods.navigateTo(
+                            ctx: context,
+                            routeName: ViewedRecentlyScreen.routeName);
+                      },
+                      color: color,
+                    ),
+                    _listTiles(
+                      title: 'Forget password',
+                      icon: IconlyLight.unlock,
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ForgetPasswordScreen(),
+                          ),
+                        );
+                      },
+                      color: color,
+                    ),
+                    SwitchListTile(
+                      title: TextWidget(
+                        text: themeState.getDarkTheme ? 'Dark mode' : 'Light mode',
+                        color: color,
+                        textSize: 18,
+                        // isTitle: true,
+                      ),
+                      secondary: Icon(themeState.getDarkTheme
+                          ? Icons.dark_mode_outlined
+                          : Icons.light_mode_outlined),
+                      onChanged: (bool value) {
+                        setState(() {
+                          themeState.setDarkTheme = value;
+                        });
+                      },
+                      value: themeState.getDarkTheme,
+                    ),
+                    _listTiles(
+                      title: user == null ? 'Login' : 'Logout',
+                      icon: user == null ? IconlyLight.login : IconlyLight.logout,
+                      onPressed: () {
+                        if (user == null) {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => const LoginScreen(),
                             ),
                           );
-                        },
-                        context: context);
-                  },
-                  color: color,
+                          return;
+                        }
+                        GlobalMethods.warningDialog(
+                            title: 'Sign out',
+                            subtitle: 'Do you wanna sign out?',
+                            fct: () async {
+                              await authInstance.signOut();
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
+                            },
+                            context: context);
+                      },
+                      color: color,
+                    ),
+                    // listTileAsRow(),
+                  ],
                 ),
-                // listTileAsRow(),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
-    ));
+        )
+    );
   }
 
   Future<void> _showAddressDialog() async {
@@ -252,7 +254,7 @@ class _UserScreenState extends State<UserScreen> {
               // },
               controller: _addressTextController,
               maxLines: 5,
-              decoration: const InputDecoration(hintText: "Your address"),
+              decoration: const InputDecoration(hintText: "Dhanmandi, Dhaka"),
             ),
             actions: [
               TextButton(

@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -8,12 +6,10 @@ import 'package:ghorlagbe/providers/orders_provider.dart';
 import 'package:ghorlagbe/providers/products_provider.dart';
 import 'package:ghorlagbe/providers/viewed_prod_provider.dart';
 import 'package:ghorlagbe/screens/btm_bar.dart';
-import 'package:ghorlagbe/screens/home_screen.dart';
 import 'package:ghorlagbe/screens/viewed_recently/viewed_recently.dart';
 import 'package:provider/provider.dart';
 
 import 'consts/theme_data.dart';
-import 'ghor_lagbe.dart';
 import 'inner_screens/cat_screen.dart';
 import 'inner_screens/feeds_screen.dart';
 import 'inner_screens/on_sale_screen.dart';
@@ -106,7 +102,7 @@ class _MyAppState extends State<MyApp> {
                   debugShowCheckedModeBanner: false,
                   title: 'Ghor Lagbe',
                   theme: Styles.themeData(themeProvider.getDarkTheme, context),
-                  home:  const Ghorlagbe(),
+                  home:  const BottomBarScreen(),
                   routes: {
                     OnSaleScreen.routeName: (ctx) => const OnSaleScreen(),
                     FeedsScreen.routeName: (ctx) => const FeedsScreen(),

@@ -35,7 +35,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     // },
     {
       'page': const UserScreen(),
-      'title': 'user Screen',
+      'title': 'User Screen',
     },
   ];
   void _selectedPage(int index) {

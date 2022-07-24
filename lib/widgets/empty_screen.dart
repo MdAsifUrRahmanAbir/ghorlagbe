@@ -57,32 +57,32 @@ class EmptyScreen extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.1,
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    side: BorderSide(
-                      color: color,
-                    ),
-                  ),
-                  primary: Theme.of(context).colorScheme.secondary,
-                  // onPrimary: color,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                ),
-                onPressed: () {
-                  GlobalMethods.navigateTo(
-                      ctx: context, routeName: FeedsScreen.routeName);
-                },
-                child: TextWidget(
-                  text: buttonText,
-                  textSize: 20,
-                  color:
-                      themeState ? Colors.grey.shade300 : Colors.grey.shade800,
-                  isTitle: true,
-                ),
-              ),
+              // ElevatedButton(
+              //   style: ElevatedButton.styleFrom(
+              //     elevation: 0,
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(8.0),
+              //       side: BorderSide(
+              //         color: color,
+              //       ),
+              //     ),
+              //     primary: Theme.of(context).colorScheme.secondary,
+              //     // onPrimary: color,
+              //     padding:
+              //         const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+              //   ),
+              //   onPressed: () {
+              //     GlobalMethods.navigateTo(
+              //         ctx: context, routeName: FeedsScreen.routeName);
+              //   },
+              //   child: TextWidget(
+              //     text: buttonText,
+              //     textSize: 20,
+              //     color:
+              //         themeState ? Colors.grey.shade300 : Colors.grey.shade800,
+              //     isTitle: true,
+              //   ),
+              // ),
             ]),
       )),
     );

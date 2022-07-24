@@ -52,70 +52,13 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      FancyShimmerImage(
-                        imageUrl: productModel.imageUrl,
-                        height: size.width * 0.22,
-                        width: size.width * 0.22,
-                        boxFit: BoxFit.fill,
-                      ),
-                      Column(
-                        children: [
-                          TextWidget(
-                            text: productModel.isPiece ? '1Piece' : '1KG',
-                            color: color,
-                            textSize: 22,
-                            isTitle: true,
-                          ),
-                          const SizedBox(
-                            height: 6,
-                          ),
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: _isInCart
-                                    ? null
-                                    : () async {
-                                        final User? user =
-                                            authInstance.currentUser;
-
-                                        if (user == null) {
-                                          GlobalMethods.errorDialog(
-                                              subtitle:
-                                                  'No user found, Please login first',
-                                              context: context);
-                                          return;
-                                        }
-                                        await GlobalMethods.addToCart(
-                                            productId: productModel.id,
-                                            quantity: 1,
-                                            context: context);
-                                        await cartProvider.fetchCart();
-                                        // cartProvider.addProductsToCart(
-                                        //     productId: productModel.id,
-                                        //     quantity: 1);
-                                      },
-                                child: Icon(
-                                  _isInCart
-                                      ? IconlyBold.bag2
-                                      : IconlyLight.bag2,
-                                  size: 22,
-                                  color: _isInCart ? Colors.green : color,
-                                ),
-                              ),
-                              HeartBTN(
-                                productId: productModel.id,
-                                isInWishlist: _isInWishlist,
-                              )
-                            ],
-                          ),
-                        ],
-                      )
-                    ],
+                  FancyShimmerImage(
+                    imageUrl: productModel.imageUrl,
+                    height: size.width * 0.22,
+                    width: size.width * 0.32,
+                    boxFit: BoxFit.fill,
                   ),
                   PriceWidget(
                     salePrice: productModel.salePrice,
@@ -124,11 +67,23 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                     isOnSale: true,
                   ),
                   const SizedBox(height: 5),
-                  TextWidget(
-                    text: productModel.title,
-                    color: color,
-                    textSize: 16,
-                    isTitle: true,
+
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center, children: [
+                      TextWidget(
+                        text: productModel.title,
+                        color: color,
+                        textSize: 16,
+                        isTitle: true,
+                      ),
+                       SizedBox(width: size.width * 0.06,),
+                      TextWidget(
+                        text: productModel.productCategoryName,
+                        color: Colors.redAccent,
+                        textSize: 12,
+                        isTitle: true,
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 5),
                 ]),

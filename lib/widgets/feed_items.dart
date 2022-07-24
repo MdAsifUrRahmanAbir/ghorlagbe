@@ -56,39 +56,28 @@ class _FeedsWidgetState extends State<FeedsWidget> {
           onTap: () {
             Navigator.pushNamed(context, ProductDetails.routeName,
                 arguments: productModel.id);
-            // GlobalMethods.navigateTo(
-            //     ctx: context, routeName: ProductDetails.routeName);
           },
           borderRadius: BorderRadius.circular(12),
-          child: Column(children: [
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
             FancyShimmerImage(
               imageUrl: productModel.imageUrl,
-              height: size.width * 0.21,
+              height: size.width * 0.38,
               width: size.width * 0.2,
               boxFit: BoxFit.fill,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    flex: 3,
-                    child: TextWidget(
-                      text: productModel.title,
-                      color: color,
-                      maxLines: 1,
-                      textSize: 18,
-                      isTitle: true,
-                    ),
-                  ),
-                  Flexible(
-                      flex: 1,
-                      child: HeartBTN(
-                        productId: productModel.id,
-                        isInWishlist: _isInWishlist,
-                      )),
-                ],
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: TextWidget(
+                  text: productModel.title,
+                  color: color,
+                  maxLines: 1,
+                  textSize: 18,
+                  isTitle: true,
+                ),
               ),
             ),
             Padding(
@@ -112,88 +101,20 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                           flex: 6,
                           child: FittedBox(
                             child: TextWidget(
-                              text: productModel.isPiece ? 'Piece' : 'kg',
-                              color: color,
-                              textSize: 20,
+                              text: productModel.productCategoryName,
+                              color: Colors.redAccent,
+                              textSize: 18,
                               isTitle: true,
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Flexible(
-                            flex: 2,
-                            // TextField can be used also instead of the textFormField
-                            child: TextFormField(
-                              controller: _quantityTextController,
-                              key: const ValueKey('10'),
-                              style: TextStyle(color: color, fontSize: 18),
-                              keyboardType: TextInputType.number,
-                              maxLines: 1,
-                              enabled: true,
-                              onChanged: (valueee) {
-                                setState(() {});
-                              },
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                  RegExp('[0-9.]'),
-                                ),
-                              ],
-                            ))
                       ],
                     ),
                   )
                 ],
               ),
             ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: TextButton(
-                onPressed: _isInCart
-                    ? null
-                    : () async {
-                        // if (_isInCart) {
-                        //   return;
-                        // }
-                        final User? user = authInstance.currentUser;
 
-                        if (user == null) {
-                          GlobalMethods.errorDialog(
-                              subtitle: 'No user found, Please login first',
-                              context: context);
-                          return;
-                        }
-                        await GlobalMethods.addToCart(
-                            productId: productModel.id,
-                            quantity: int.parse(_quantityTextController.text),
-                            context: context);
-                        await cartProvider.fetchCart();
-                        // cartProvider.addProductsToCart(
-                        //     productId: productModel.id,
-                        //     quantity: int.parse(_quantityTextController.text));
-                      },
-                child: TextWidget(
-                  text: _isInCart ? 'In cart' : 'Add to cart',
-                  maxLines: 1,
-                  color: color,
-                  textSize: 20,
-                ),
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Theme.of(context).cardColor),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(12.0),
-                          bottomRight: Radius.circular(12.0),
-                        ),
-                      ),
-                    )),
-              ),
-            )
           ]),
         ),
       ),

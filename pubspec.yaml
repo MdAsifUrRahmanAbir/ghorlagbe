@@ -36,7 +36,7 @@ dependencies:
   cloud_firestore: ^3.1.13
   firebase_storage: ^10.2.14
   firebase: ^9.0.2
-  
+
   flutter_stripe: ^2.5.0
   http: ^0.13.4
 

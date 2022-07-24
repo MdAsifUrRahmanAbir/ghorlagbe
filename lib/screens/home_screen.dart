@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            /// slider
             SizedBox(
               height: size.height * 0.33,
               child: Swiper(
@@ -63,6 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 6,
             ),
+
+            ///view all button
             TextButton(
               onPressed: () {
                 GlobalMethods.navigateTo(
@@ -78,6 +81,8 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 6,
             ),
+
+            /// first row .. home view
             Row(
               children: [
                 RotatedBox(
@@ -123,6 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 10,
             ),
+
+            ///browse all button
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -150,6 +157,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+
+
+            ///grid view product view
             GridView.count(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -158,9 +168,9 @@ class _HomeScreenState extends State<HomeScreen> {
               // crossAxisSpacing: 10,
               childAspectRatio: size.width / (size.height * 0.61),
               children: List.generate(
-                  allProducts.length < 4
+                  allProducts.length < 10
                       ? allProducts.length // length 3
-                      : 4, (index) {
+                      : 10, (index) {
                 return ChangeNotifierProvider.value(
                   value: allProducts[index],
                   child: const FeedsWidget(),
