@@ -29,10 +29,10 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       'page': CategoriesScreen(),
       'title': 'Categories Screen',
     },
-    {
-      'page': const CartScreen(),
-      'title': 'Cart Screen',
-    },
+    // {
+    //   'page': const CartScreen(),
+    //   'title': 'Cart Screen',
+    // },
     {
       'page': const UserScreen(),
       'title': 'user Screen',
@@ -75,24 +75,24 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                 : IconlyLight.category),
             label: "Categories",
           ),
-          BottomNavigationBarItem(
-            icon: Consumer<CartProvider>(builder: (_, myCart, ch) {
-              return Badge(
-                  toAnimate: true,
-                  shape: BadgeShape.circle,
-                  badgeColor: Colors.blue,
-                  borderRadius: BorderRadius.circular(8),
-                  position: BadgePosition.topEnd(top: -7, end: -7),
-                  badgeContent: FittedBox(
-                      child: TextWidget(
-                          text: myCart.getCartItems.length.toString(),
-                          color: Colors.white,
-                          textSize: 15)),
-                  child: Icon(
-                      _selectedIndex == 2 ? IconlyBold.buy : IconlyLight.buy),);
-            }),
-            label: "Cart",
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Consumer<CartProvider>(builder: (_, myCart, ch) {
+          //     return Badge(
+          //         toAnimate: true,
+          //         shape: BadgeShape.circle,
+          //         badgeColor: Colors.blue,
+          //         borderRadius: BorderRadius.circular(8),
+          //         position: BadgePosition.topEnd(top: -7, end: -7),
+          //         badgeContent: FittedBox(
+          //             child: TextWidget(
+          //                 text: myCart.getCartItems.length.toString(),
+          //                 color: Colors.white,
+          //                 textSize: 15)),
+          //         child: Icon(
+          //             _selectedIndex == 2 ? IconlyBold.buy : IconlyLight.buy),);
+          //   }),
+          //   label: "Cart",
+          // ),
           BottomNavigationBarItem(
             icon: Icon(
                 _selectedIndex == 3 ? IconlyBold.user2 : IconlyLight.user2),
