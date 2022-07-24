@@ -13,6 +13,7 @@ import 'package:ghorlagbe/screens/viewed_recently/viewed_recently.dart';
 import 'package:provider/provider.dart';
 
 import 'consts/theme_data.dart';
+import 'ghor_lagbe.dart';
 import 'inner_screens/cat_screen.dart';
 import 'inner_screens/feeds_screen.dart';
 import 'inner_screens/on_sale_screen.dart';
@@ -105,7 +106,7 @@ class _MyAppState extends State<MyApp> {
                   debugShowCheckedModeBanner: false,
                   title: 'Ghor Lagbe',
                   theme: Styles.themeData(themeProvider.getDarkTheme, context),
-                  home:  const BottomBarScreen(),
+                  home:  const Ghorlagbe(),
                   routes: {
                     OnSaleScreen.routeName: (ctx) => const OnSaleScreen(),
                     FeedsScreen.routeName: (ctx) => const FeedsScreen(),
@@ -123,71 +124,5 @@ class _MyAppState extends State<MyApp> {
             }),
           );
         });
-  }
-}
-
-class PaymentDemo extends StatelessWidget {
-  const PaymentDemo({Key? key}) : super(key: key);
-  Future<void> initPayment(
-      {required String email,
-      required double amount,
-      required BuildContext context}) async {
-    try {
-      // 1. Create a payment intent on the server
-      final response = await http.post(
-          Uri.parse(
-              'Your function'),
-          body: {
-            'email': email,
-            'amount': amount.toString(),
-          });
-
-      final jsonResponse = jsonDecode(response.body);
-      log(jsonResponse.toString());
-      // 2. Initialize the payment sheet
-      await Stripe.instance.initPaymentSheet(
-          paymentSheetParameters: SetupPaymentSheetParameters(
-        paymentIntentClientSecret: jsonResponse['paymentIntent'],
-        merchantDisplayName: 'Grocery Flutter course',
-        customerId: jsonResponse['customer'],
-        customerEphemeralKeySecret: jsonResponse['ephemeralKey'],
-        testEnv: true,
-        merchantCountryCode: 'SG',
-      ));
-      await Stripe.instance.presentPaymentSheet();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Payment is successful'),
-        ),
-      );
-    } catch (errorr) {
-      if (errorr is StripeException) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('An error occured ${errorr.error.localizedMessage}'),
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('An error occured $errorr'),
-          ),
-        );
-      }
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: ElevatedButton(
-        child: const Text('Pay 20\$'),
-        onPressed: () async {
-          await initPayment(
-              amount: 50.0, context: context, email: 'email@test.com');
-        },
-      )),
-    );
   }
 }
