@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: LoadingManager(
         isLoading: _isLoading,
         child: Stack(children: [
-          Swiper(
+          /*Swiper(
             duration: 800,
             autoplayDelay: 8000,
             itemBuilder: (BuildContext context, int index) {
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Container(
             color: Colors.black.withOpacity(0.7),
-          ),
+          ),*/
           SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -233,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  GoogleButton(),
+                  //GoogleButton(),
                   const SizedBox(
                     height: 10,
                   ),

@@ -109,7 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         isLoading: _isLoading,
         child: Stack(
           children: <Widget>[
-            Swiper(
+            /*Swiper(
               duration: 800,
               autoplayDelay: 6000,
 
@@ -126,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             Container(
               color: Colors.black.withOpacity(0.7),
-            ),
+            ),*/
             SingleChildScrollView(
               padding: const EdgeInsets.all(20),
               child: Column(

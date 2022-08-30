@@ -50,7 +50,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       ),
       body: productByCat.isEmpty
           ? const EmptyProdWidget(
-              text: 'No products belong to this category',
+              text: 'No houses belong to this category',
             )
           : SingleChildScrollView(
               child: Column(children: [
@@ -78,7 +78,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           borderSide: const BorderSide(
                               color: Colors.greenAccent, width: 1),
                         ),
-                        hintText: "What's in your mind",
+                        hintText: "Search by Location",
                         prefixIcon: const Icon(Icons.search),
                         suffix: IconButton(
                           onPressed: () {
@@ -99,7 +99,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 _searchTextController!.text.isNotEmpty &&
                         listProdcutSearch.isEmpty
                     ? const EmptyProdWidget(
-                        text: 'No products found, please try another keyword')
+                        text: 'No houses found, please try another keyword')
                     : GridView.count(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),

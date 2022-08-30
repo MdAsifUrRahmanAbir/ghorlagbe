@@ -42,6 +42,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
     final productModel = Provider.of<ProductModel>(context);
+    //final productModel1 = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
     bool? _isInCart = cartProvider.getCartItems.containsKey(productModel.id);
     final wishlistProvider = Provider.of<WishlistProvider>(context);
@@ -56,7 +57,32 @@ class _FeedsWidgetState extends State<FeedsWidget> {
         child: InkWell(
           onTap: () {
             Navigator.pushNamed(context, ProductDetails.routeName,
-                arguments: productModel.id);
+                arguments: productModel.id,
+            );
+
+
+
+            /*Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ProductDetails(
+                  id: widget.,
+                  title: title,
+                  description: description,
+                  map: map,
+                  mapUrl: map,
+                  price: price,
+                  salePrice: salePrice.toDouble(),
+                  productCat: productCat,
+                  imageUrl: imageUrl == null
+                      ? 'https://www.lifepng.com/wp-content/uploads/2020/11/Apricot-Large-Single-png-hd.png'
+                      : imageUrl!,
+                  isOnSale: isOnSale,
+                  isPiece: isPiece,
+                ),
+              ),
+            );*/
+
+
           },
           borderRadius: BorderRadius.circular(12),
           child: Column(
@@ -64,8 +90,8 @@ class _FeedsWidgetState extends State<FeedsWidget> {
               children: [
             FancyShimmerImage(
               imageUrl: productModel.imageUrl,
-              height: size.width * 0.38,
-              width: size.width * 0.2,
+              height: size.width * 0.32,
+              width: size.width * 0.6,
               boxFit: BoxFit.fill,
             ),
             Align(
@@ -76,7 +102,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                   text: productModel.title,
                   color: color,
                   maxLines: 1,
-                  textSize: 18,
+                  textSize: 15,
                   isTitle: true,
                 ),
               ),
@@ -117,7 +143,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                             child: TextWidget(
                               text: productModel.productCategoryName,
                               color: Colors.redAccent,
-                              textSize: 18,
+                              textSize: 16,
                               isTitle: true,
                             ),
                           ),

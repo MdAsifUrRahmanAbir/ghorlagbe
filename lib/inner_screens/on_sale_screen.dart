@@ -25,7 +25,7 @@ class OnSaleScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: TextWidget(
-          text: 'Products on sale',
+          text: 'Houses on sale',
           color: color,
           textSize: 24.0,
           isTitle: true,
@@ -33,13 +33,13 @@ class OnSaleScreen extends StatelessWidget {
       ),
       body: productsOnSale.isEmpty
           ? const EmptyProdWidget(
-            text: 'No products on sale yet!,\nStay tuned',
+            text: 'No houses on sale yet!,\nStay tuned',
           )
           : GridView.count(
               crossAxisCount: 2,
               padding: EdgeInsets.zero,
               // crossAxisSpacing: 10,
-              childAspectRatio: size.width / (size.height * 0.45),
+              childAspectRatio: size.width / (size.height * 0.50),
               children: List.generate(productsOnSale.length, (index) {
                 return ChangeNotifierProvider.value(
                   value: productsOnSale[index],

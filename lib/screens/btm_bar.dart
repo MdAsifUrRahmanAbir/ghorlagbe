@@ -1,8 +1,13 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:demo/screens/categories.dart';
 import 'package:demo/screens/home_screen.dart';
 import 'package:demo/screens/user.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import '../providers/dark_theme_provider.dart';
 
@@ -14,6 +19,49 @@ class BottomBarScreen extends StatefulWidget {
 }
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
+
+
+  //////
+  late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool isAlertSet = false;
+  //////
+
+
+
+  @override
+  void initState() {
+    getConnectivity();
+    super.initState();
+  }
+
+  //
+  getConnectivity() =>
+      subscription = Connectivity().onConnectivityChanged.listen(
+            (ConnectivityResult result) async {
+          isDeviceConnected = await InternetConnectionChecker().hasConnection;
+          if (!isDeviceConnected && isAlertSet == false) {
+            showDialogBox();
+            setState(() => isAlertSet = true);
+          }else{
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (ctx) => const BottomBarScreen(),
+            ));
+          }
+        },
+      );
+
+//
+////
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+  /////
+
+
+
   int _selectedIndex = 0;
   final List<Map<String, dynamic>> _pages = [
     {
@@ -72,4 +120,45 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       ),
     );
   }
+
+
+
+
+
+  showDialogBox() => showCupertinoDialog<String>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      //title: const Text('No Connection'),
+      content: Column(
+        children: [
+          Image.asset(
+            "assets/images/internet.png",height: 250,width: 400,fit: BoxFit.cover,
+          ),
+
+          SizedBox(height: 10,),
+          Text("Opps",style: TextStyle(fontSize: 22,color: Colors.amber),),
+          SizedBox(height: 10,),
+          Text('No Connection'),
+          Text('Please check your internet connectivity',style: TextStyle(fontSize: 16,),),
+        ],
+      ),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context, 'Cancel');
+            setState(() => isAlertSet = false);
+            isDeviceConnected =
+            await InternetConnectionChecker().hasConnection;
+            if (!isDeviceConnected && isAlertSet == false) {
+              showDialogBox();
+              setState(() => isAlertSet = true);
+            }
+          },
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
+
+
 }

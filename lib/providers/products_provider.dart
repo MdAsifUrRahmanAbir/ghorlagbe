@@ -30,6 +30,12 @@ class ProductsProvider with ChangeNotifier {
               id: element.get('id'),
               title: element.get('title'),
               description: element.get('description'),
+
+              //new added part
+              map: element.get('map'),
+              //new added part
+
+
               imageUrl: element.get('imageUrl'),
               productCategoryName: element.get('productCategoryName'),
               price: double.parse(

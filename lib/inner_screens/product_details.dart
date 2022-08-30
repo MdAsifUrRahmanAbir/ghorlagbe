@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:demo/widgets/heart_btn.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
 import '../consts/firebase_consts.dart';
 import '../providers/cart_provider.dart';
@@ -22,6 +25,11 @@ class ProductDetails extends StatefulWidget {
 
   const ProductDetails({Key? key}) : super(key: key);
 
+  //final String map;
+  /*final String id, title, price, productCat, imageUrl, description,map,mapUrl;
+  final bool isPiece, isOnSale;
+  final double salePrice;*/
+
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
 }
@@ -36,6 +44,20 @@ class _ProductDetailsState extends State<ProductDetails> {
     super.dispose();
   }
 
+
+
+
+
+  //new added part
+  /*Future _mapurlLancher() async {
+    if (!await (launch(mapUrl))) throw 'Could not find ${widget.mapUrl}';
+  }*/
+//new added part
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     Size size = Utils(context).getScreenSize;
@@ -48,6 +70,18 @@ class _ProductDetailsState extends State<ProductDetails> {
     final getCurrProduct = productProvider.findProdById(productId);
 
     double usedPrice = getCurrProduct.price;
+
+
+    //new added part
+    String mapUrl = getCurrProduct.map;
+    //new added part
+    Future _mapurlLancher() async {
+      if (!await (launch(mapUrl))) throw 'Could not find ${mapUrl}';
+    }
+//new added part
+    //new added part
+
+
     double totalPrice = usedPrice * int.parse(_quantityTextController.text);
 
     bool? _isInWishlist =
@@ -78,11 +112,17 @@ class _ProductDetailsState extends State<ProductDetails> {
             flex: 2,
             child: FancyShimmerImage(
               imageUrl: getCurrProduct.imageUrl,
-              boxFit: BoxFit.scaleDown,
-              width: size.width,
+              boxFit: BoxFit.fill,
+              //width: size.width,
               // height: screenHeight * .4,
+              width: double.infinity,
+              height: 300,
             ),
           ),
+
+
+          SizedBox(height: 5,),
+
           Flexible(
             flex: 3,
             child: Container(
@@ -117,9 +157,42 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ],
                     ),
                   ),
+
+
+
+
+                  SizedBox(height: 5,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30,right: 30),
+                    child: Container(
+
+                      height: 60,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: Colors.white
+                      ),
+                      child: Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Text(getCurrProduct.description,style: TextStyle(color: Colors.black),),
+                        ),
+
+                        /*TextWidget(
+                          text: getCurrProduct.description,
+                          color: Colors.black,
+                          textSize: 18,
+                          isTitle: true,
+                        ),*/
+                      ),
+                    ),
+                  ),
+
+
+                  SizedBox(height: 8,),
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 20, left: 30, right: 30),
+                        const EdgeInsets.only(left: 30, right: 30),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -156,8 +229,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ],
                     ),
                   ),
+
+
                   const SizedBox(
-                    height: 30,
+                    height: 6,
                   ),
                   getCurrProduct.isPiece?Container():
                   Row(
@@ -223,7 +298,53 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                     ],
                   ),
-                  const Spacer(),
+
+
+
+
+
+
+
+
+                  //SizedBox(height: 2,),
+                  //new added part
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        _mapurlLancher();
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 25,right: 25,top: 10,bottom: 10),
+                      child: Card(
+                        color: Colors.blue,
+                        child: ListTile(
+                          //leading: Icon(Icons.location_pin),
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.location_pin),
+                              SizedBox(width: 10,),
+                              Text("Directions"),
+                            ],
+                          ),
+                          //trailing: FaIcon(FontAwesomeIcons.handPointer,color: Colors.amber,),
+                        ),
+                      ),
+                    ),
+                  ),
+                  //new added part
+
+
+
+
+
+
+
+
+
+
+                  //const Spacer(),
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(
@@ -281,7 +402,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             color: Colors.green,
                             borderRadius: BorderRadius.circular(10),
                             child: InkWell(
-                              onTap: (){
+                              onTap: ()async{
                                 final User? user =
                                     authInstance.currentUser;
 
@@ -292,6 +413,55 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       context: context);
                                   return;
                                 }
+
+
+
+                                ///
+                                //User? user = authInstance.currentUser;
+                                /*final orderId = const Uuid().v4();
+                                final productProvider =
+                                Provider.of<ProductsProvider>(context, listen: false);
+
+                                cartProvider.getCartItems.forEach((key, value) async {
+                                  final getCurrProduct = productProvider.findProdById(
+                                    value.productId,
+                                  );
+                                  try {
+                                    await FirebaseFirestore.instance
+                                        .collection('orders')
+                                        .doc(orderId)
+                                        .set({
+                                      'orderId': orderId,
+                                      'userId': user!.uid,
+                                      'productId': value.productId,
+                                      'price': (getCurrProduct.isOnSale
+                                          ? getCurrProduct.salePrice
+                                          : getCurrProduct.price) *
+                                          value.quantity,
+                                      'totalPrice': total,
+                                      'quantity': value.quantity,
+                                      'imageUrl': getCurrProduct.imageUrl,
+                                      'userName': user.displayName,
+                                      'orderDate': Timestamp.now(),
+                                    });
+                                    await cartProvider.clearOnlineCart();
+                                    cartProvider.clearLocalCart();
+                                    ordersProvider.fetchOrders();
+                                    await Fluttertoast.showToast(
+                                      msg: "Your order has been placed",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                    );
+                                  } catch (error) {
+                                    GlobalMethods.errorDialog(
+                                        subtitle: error.toString(), context: ctx);
+                                  } finally {}
+                                });*/
+                                /////
+
+
+
+
 
                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CheckOutScreen()));
 

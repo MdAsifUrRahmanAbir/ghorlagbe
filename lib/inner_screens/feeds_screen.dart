@@ -49,7 +49,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
         title: TextWidget(
-          text: 'All Products',
+          text: 'All Houses',
           color: color,
           textSize: 20.0,
           isTitle: true,
@@ -80,7 +80,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
                     borderSide:
                         const BorderSide(color: Colors.greenAccent, width: 1),
                   ),
-                  hintText: "What's in your mind",
+                  hintText: "Search by Location",
                   prefixIcon: const Icon(Icons.search),
                   suffix: IconButton(
                     onPressed: () {
