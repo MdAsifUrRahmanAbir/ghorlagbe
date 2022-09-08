@@ -79,7 +79,10 @@ class _ProductDetailsState extends State<ProductDetails> {
       if (!await (launch(mapUrl))) throw 'Could not find ${mapUrl}';
     }
 //new added part
-    //new added part
+
+
+    String call = getCurrProduct.call;
+    //new added
 
 
     double totalPrice = usedPrice * int.parse(_quantityTextController.text);
@@ -107,7 +110,8 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             elevation: 0,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor),
-        body: Column(children: [
+        body: Column(
+            children: [
           Flexible(
             flex: 2,
             child: FancyShimmerImage(
@@ -125,362 +129,420 @@ class _ProductDetailsState extends State<ProductDetails> {
 
           Flexible(
             flex: 3,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
+            child: SingleChildScrollView(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  ),
                 ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 20, left: 30, right: 30),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: TextWidget(
-                            text: getCurrProduct.title,
-                            color: color,
-                            textSize: 25,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 20, left: 30, right: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: TextWidget(
+                              text: getCurrProduct.title,
+                              color: color,
+                              textSize: 25,
+                              isTitle: true,
+                            ),
+                          ),
+                          HeartBTN(
+                            productId: getCurrProduct.id,
+                            isInWishlist: _isInWishlist,
+                          )
+                        ],
+                      ),
+                    ),
+
+
+
+
+                    SizedBox(height: 10,),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30,right: 30),
+                      child: Container(
+
+                        height: 110,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          color: Colors.white
+                        ),
+                        child: Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Text(getCurrProduct.description,style: TextStyle(color: Colors.black),),
+                          ),
+
+                          /*TextWidget(
+                            text: getCurrProduct.description,
+                            color: Colors.black,
+                            textSize: 18,
+                            isTitle: true,
+                          ),*/
+                        ),
+                      ),
+                    ),
+
+
+                    SizedBox(height: 16,),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 30, right: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          TextWidget(
+                            text: 'TK${usedPrice.toString()}',
+                            color: Colors.green,
+                            textSize: 22,
                             isTitle: true,
                           ),
-                        ),
-                        HeartBTN(
-                          productId: getCurrProduct.id,
-                          isInWishlist: _isInWishlist,
-                        )
-                      ],
-                    ),
-                  ),
-
-
-
-
-                  SizedBox(height: 5,),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30,right: 30),
-                    child: Container(
-
-                      height: 60,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        color: Colors.white
-                      ),
-                      child: Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Text(getCurrProduct.description,style: TextStyle(color: Colors.black),),
-                        ),
-
-                        /*TextWidget(
-                          text: getCurrProduct.description,
-                          color: Colors.black,
-                          textSize: 18,
-                          isTitle: true,
-                        ),*/
+                          TextWidget(
+                            text: getCurrProduct.isPiece ? '/For Sell' : '/For Rent',
+                            color: color,
+                            textSize: 12,
+                            isTitle: false,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Spacer(),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 8),
+                            decoration: BoxDecoration(
+                                color: const Color.fromRGBO(63, 200, 101, 1),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: TextWidget(
+                              text: 'TRUSTED SITE',
+                              color: Colors.white,
+                              textSize: 20,
+                              isTitle: true,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
 
 
-                  SizedBox(height: 8,),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 30, right: 30),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    getCurrProduct.isPiece?Container():
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextWidget(
-                          text: 'TK${usedPrice.toString()}',
-                          color: Colors.green,
-                          textSize: 22,
-                          isTitle: true,
-                        ),
-                        TextWidget(
-                          text: getCurrProduct.isPiece ? '/For Sell' : '/For Rent',
-                          color: color,
-                          textSize: 12,
-                          isTitle: false,
+
+                        quantityControl(
+                          fct: () {
+                            if (_quantityTextController.text == '1') {
+                              return;
+                            } else {
+                              setState(() {
+                                _quantityTextController.text =
+                                    (int.parse(_quantityTextController.text) - 1)
+                                        .toString();
+                              });
+                            }
+                          },
+                          icon: CupertinoIcons.minus,
+                          color: Colors.red,
                         ),
                         const SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
-                        const Spacer(),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 4, horizontal: 8),
-                          decoration: BoxDecoration(
-                              color: const Color.fromRGBO(63, 200, 101, 1),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: TextWidget(
-                            text: 'TRUSTED SITE',
-                            color: Colors.white,
-                            textSize: 20,
-                            isTitle: true,
+                        Flexible(
+                          flex: 1,
+                          child: TextField(
+                            controller: _quantityTextController,
+                            key: const ValueKey('quantity'),
+                            keyboardType: TextInputType.number,
+                            maxLines: 1,
+                            decoration: const InputDecoration(
+                              border: UnderlineInputBorder(),
+                            ),
+                            textAlign: TextAlign.center,
+                            cursorColor: Colors.green,
+                            enabled: true,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                if (value.isEmpty) {
+                                  _quantityTextController.text = '1';
+                                } else {}
+                              });
+                            },
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-
-
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  getCurrProduct.isPiece?Container():
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-
-                      quantityControl(
-                        fct: () {
-                          if (_quantityTextController.text == '1') {
-                            return;
-                          } else {
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        quantityControl(
+                          fct: () {
                             setState(() {
                               _quantityTextController.text =
-                                  (int.parse(_quantityTextController.text) - 1)
+                                  (int.parse(_quantityTextController.text) + 1)
                                       .toString();
                             });
-                          }
-                        },
-                        icon: CupertinoIcons.minus,
-                        color: Colors.red,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: TextField(
-                          controller: _quantityTextController,
-                          key: const ValueKey('quantity'),
-                          keyboardType: TextInputType.number,
-                          maxLines: 1,
-                          decoration: const InputDecoration(
-                            border: UnderlineInputBorder(),
+                          },
+                          icon: CupertinoIcons.plus,
+                          color: Colors.green,
+                        ),
+                      ],
+                    ),
+
+
+
+
+
+
+
+
+                    //SizedBox(height: 2,),
+                    //new added part
+                    /*InkWell(
+                      onTap: (){
+                        setState(() {
+                          _mapurlLancher();
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 25,right: 25,top: 10,bottom: 10),
+                        child: Card(
+                          color: Colors.blue,
+                          child: ListTile(
+                            //leading: Icon(Icons.location_pin),
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.location_pin),
+                                SizedBox(width: 10,),
+                                Text("Directions"),
+                              ],
+                            ),
+                            //trailing: FaIcon(FontAwesomeIcons.handPointer,color: Colors.amber,),
                           ),
-                          textAlign: TextAlign.center,
-                          cursorColor: Colors.green,
-                          enabled: true,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-                          ],
-                          onChanged: (value) {
+                        ),
+                      ),
+                    ),*/
+                    //new added part
+
+
+
+
+
+
+                    SizedBox(height: 22,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: (){
                             setState(() {
-                              if (value.isEmpty) {
-                                _quantityTextController.text = '1';
-                              } else {}
+                              //_mapurlLancher();
+                              launch('tel:${call}');
                             });
                           },
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      quantityControl(
-                        fct: () {
-                          setState(() {
-                            _quantityTextController.text =
-                                (int.parse(_quantityTextController.text) + 1)
-                                    .toString();
-                          });
-                        },
-                        icon: CupertinoIcons.plus,
-                        color: Colors.green,
-                      ),
-                    ],
-                  ),
+                          child: Container(
+                            height: 45,
+                            width: 45,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.blue,
+                            ),
 
-
-
-
-
-
-
-
-                  //SizedBox(height: 2,),
-                  //new added part
-                  InkWell(
-                    onTap: (){
-                      setState(() {
-                        _mapurlLancher();
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 25,right: 25,top: 10,bottom: 10),
-                      child: Card(
-                        color: Colors.blue,
-                        child: ListTile(
-                          //leading: Icon(Icons.location_pin),
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.location_pin),
-                              SizedBox(width: 10,),
-                              Text("Directions"),
-                            ],
-                          ),
-                          //trailing: FaIcon(FontAwesomeIcons.handPointer,color: Colors.amber,),
-                        ),
-                      ),
-                    ),
-                  ),
-                  //new added part
-
-
-
-
-
-
-
-
-
-
-                  //const Spacer(),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 30),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextWidget(
-                                text: getCurrProduct.isPiece?'Total':'Advance for 1 month Min',
-                                color: Colors.red.shade300,
-                                textSize: 20,
-                                isTitle: true,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              FittedBox(
-                                child: Row(
-                                  children: [
-                                    TextWidget(
-                                      text:
-                                          'TK${totalPrice.toStringAsFixed(2)}',
-                                      color: color,
-                                      textSize: 20,
-                                      isTitle: true,
-                                    ),
-                                    TextWidget(
-                                      text: getCurrProduct.isPiece?"":'/${_quantityTextController.text}Months',
-                                      color: color,
-                                      textSize: 16,
-                                      isTitle: false,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                            child: Icon(Icons.call,color: Colors.white,),
                           ),
                         ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Flexible(
-                          child: Material(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(10),
-                            child: InkWell(
-                              onTap: ()async{
-                                final User? user =
-                                    authInstance.currentUser;
-
-                                if (user == null) {
-                                  GlobalMethods.errorDialog(
-                                      subtitle:
-                                      'No user found, Please login first',
-                                      context: context);
-                                  return;
-                                }
 
 
 
-                                ///
-                                //User? user = authInstance.currentUser;
-                                /*final orderId = const Uuid().v4();
-                                final productProvider =
-                                Provider.of<ProductsProvider>(context, listen: false);
+                        SizedBox(width: 20,),
+                        InkWell(
+                          onTap: (){
+                            setState(() {
+                              _mapurlLancher();
+                            });
+                          },
+                          child: Container(
+                            height: 45,
+                            width: 240,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.blue,
+                            ),
 
-                                cartProvider.getCartItems.forEach((key, value) async {
-                                  final getCurrProduct = productProvider.findProdById(
-                                    value.productId,
-                                  );
-                                  try {
-                                    await FirebaseFirestore.instance
-                                        .collection('orders')
-                                        .doc(orderId)
-                                        .set({
-                                      'orderId': orderId,
-                                      'userId': user!.uid,
-                                      'productId': value.productId,
-                                      'price': (getCurrProduct.isOnSale
-                                          ? getCurrProduct.salePrice
-                                          : getCurrProduct.price) *
-                                          value.quantity,
-                                      'totalPrice': total,
-                                      'quantity': value.quantity,
-                                      'imageUrl': getCurrProduct.imageUrl,
-                                      'userName': user.displayName,
-                                      'orderDate': Timestamp.now(),
-                                    });
-                                    await cartProvider.clearOnlineCart();
-                                    cartProvider.clearLocalCart();
-                                    ordersProvider.fetchOrders();
-                                    await Fluttertoast.showToast(
-                                      msg: "Your order has been placed",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.CENTER,
-                                    );
-                                  } catch (error) {
-                                    GlobalMethods.errorDialog(
-                                        subtitle: error.toString(), context: ctx);
-                                  } finally {}
-                                });*/
-                                /////
-
-
-
-
-
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CheckOutScreen()));
-
-                              },
-                              child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  //getCurrProduct.isPiece?Container():
-                                  child: TextWidget(
-                                      text:
-                                      getCurrProduct.isPiece? 'BUY' : 'GET RENT',
-                                      color: Colors.white,
-                                      textSize: 18)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.location_pin,color: Colors.white,),
+                                Text("Directions",style: TextStyle(color: Colors.white),),
+                              ],
                             ),
                           ),
                         ),
+
                       ],
                     ),
-                  ),
-                ],
+
+
+
+
+
+
+
+                    SizedBox(height: 40,),
+                    //const Spacer(),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 30),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.secondary,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextWidget(
+                                  text: getCurrProduct.isPiece?'Total':'Advance for 1 month Min',
+                                  color: Colors.red.shade300,
+                                  textSize: 20,
+                                  isTitle: true,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                FittedBox(
+                                  child: Row(
+                                    children: [
+                                      TextWidget(
+                                        text:
+                                            'TK${totalPrice.toStringAsFixed(2)}',
+                                        color: color,
+                                        textSize: 20,
+                                        isTitle: true,
+                                      ),
+                                      TextWidget(
+                                        text: getCurrProduct.isPiece?"":'/${_quantityTextController.text}Months',
+                                        color: color,
+                                        textSize: 16,
+                                        isTitle: false,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Flexible(
+                            child: Material(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(10),
+                              child: InkWell(
+                                onTap: ()async{
+                                  final User? user =
+                                      authInstance.currentUser;
+
+                                  if (user == null) {
+                                    GlobalMethods.errorDialog(
+                                        subtitle:
+                                        'No user found, Please login first',
+                                        context: context);
+                                    return;
+                                  }
+
+
+
+                                  ///
+                                  //User? user = authInstance.currentUser;
+                                  /*final orderId = const Uuid().v4();
+                                  final productProvider =
+                                  Provider.of<ProductsProvider>(context, listen: false);
+
+                                  cartProvider.getCartItems.forEach((key, value) async {
+                                    final getCurrProduct = productProvider.findProdById(
+                                      value.productId,
+                                    );
+                                    try {
+                                      await FirebaseFirestore.instance
+                                          .collection('orders')
+                                          .doc(orderId)
+                                          .set({
+                                        'orderId': orderId,
+                                        'userId': user!.uid,
+                                        'productId': value.productId,
+                                        'price': (getCurrProduct.isOnSale
+                                            ? getCurrProduct.salePrice
+                                            : getCurrProduct.price) *
+                                            value.quantity,
+                                        'totalPrice': total,
+                                        'quantity': value.quantity,
+                                        'imageUrl': getCurrProduct.imageUrl,
+                                        'userName': user.displayName,
+                                        'orderDate': Timestamp.now(),
+                                      });
+                                      await cartProvider.clearOnlineCart();
+                                      cartProvider.clearLocalCart();
+                                      ordersProvider.fetchOrders();
+                                      await Fluttertoast.showToast(
+                                        msg: "Your order has been placed",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                      );
+                                    } catch (error) {
+                                      GlobalMethods.errorDialog(
+                                          subtitle: error.toString(), context: ctx);
+                                    } finally {}
+                                  });*/
+                                  /////
+
+
+
+
+
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CheckOutScreen()));
+
+                                },
+                                child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    //getCurrProduct.isPiece?Container():
+                                    child: TextWidget(
+                                        text:
+                                        getCurrProduct.isPiece? 'BUY' : 'GET RENT',
+                                        color: Colors.white,
+                                        textSize: 18)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           )

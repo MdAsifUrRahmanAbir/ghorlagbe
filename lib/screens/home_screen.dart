@@ -66,17 +66,25 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             ///view all button
-            TextButton(
-              onPressed: () {
-                GlobalMethods.navigateTo(
-                    ctx: context, routeName: OnSaleScreen.routeName);
-              },
-              child: TextWidget(
-                text: 'View all',
-                maxLines: 1,
-                color: Colors.blue,
-                textSize: 20,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: TextButton(
+                    onPressed: () {
+                      GlobalMethods.navigateTo(
+                          ctx: context, routeName: OnSaleScreen.routeName);
+                    },
+                    child: TextWidget(
+                      text: 'View all',
+                      maxLines: 1,
+                      color: Colors.blue,
+                      textSize: 20,
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 6,

@@ -35,6 +35,10 @@ class ProductsProvider with ChangeNotifier {
               map: element.get('map'),
               //new added part
 
+              //new added
+              call: element.get('call'),
+              //new added
+
 
               imageUrl: element.get('imageUrl'),
               productCategoryName: element.get('productCategoryName'),
