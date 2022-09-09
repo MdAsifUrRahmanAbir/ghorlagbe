@@ -14,6 +14,7 @@ import 'package:demo/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/dark_theme_provider.dart';
+import 'PostScreen/main_page.dart';
 import 'auth/login.dart';
 
 class UserScreen extends StatefulWidget {
@@ -147,14 +148,14 @@ class _UserScreenState extends State<UserScreen> {
                       },
                       color: color,
                     ),
-                    // _listTiles(
-                    //   title: 'My Ads',
-                    //   icon: IconlyLight.work,
-                    //   onPressed: () {
-                    //     Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
-                    //   },
-                    //   color: color,
-                    // ),
+                    _listTiles(
+                      title: 'Post Ads',
+                      icon: IconlyLight.work,
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
+                      },
+                      color: color,
+                    ),
                     _listTiles(
                       title: 'Favourite Home',
                       icon: IconlyLight.heart,

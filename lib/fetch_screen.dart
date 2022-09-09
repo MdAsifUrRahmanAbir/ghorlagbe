@@ -1,14 +1,11 @@
 import 'dart:async';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:demo/providers/cart_provider.dart';
 import 'package:demo/providers/wishlist_provider.dart';
 import 'package:demo/screens/btm_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'package:provider/provider.dart';
 

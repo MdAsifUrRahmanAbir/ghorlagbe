@@ -39,10 +39,7 @@ dependencies:
 
   webview_flutter: ^3.0.2
 
-
-
   http: ^0.13.4
-
 
 dev_dependencies:
   flutter_test:

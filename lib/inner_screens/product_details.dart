@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:demo/widgets/heart_btn.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
@@ -479,52 +480,31 @@ class _ProductDetailsState extends State<ProductDetails> {
 
                                   ///
                                   //User? user = authInstance.currentUser;
-                                  /*final orderId = const Uuid().v4();
-                                  final productProvider =
-                                  Provider.of<ProductsProvider>(context, listen: false);
+                                  final orderId = const Uuid().v4();
 
-                                  cartProvider.getCartItems.forEach((key, value) async {
-                                    final getCurrProduct = productProvider.findProdById(
-                                      value.productId,
-                                    );
-                                    try {
-                                      await FirebaseFirestore.instance
-                                          .collection('orders')
-                                          .doc(orderId)
-                                          .set({
-                                        'orderId': orderId,
-                                        'userId': user!.uid,
-                                        'productId': value.productId,
-                                        'price': (getCurrProduct.isOnSale
-                                            ? getCurrProduct.salePrice
-                                            : getCurrProduct.price) *
-                                            value.quantity,
-                                        'totalPrice': total,
-                                        'quantity': value.quantity,
-                                        'imageUrl': getCurrProduct.imageUrl,
-                                        'userName': user.displayName,
-                                        'orderDate': Timestamp.now(),
-                                      });
-                                      await cartProvider.clearOnlineCart();
-                                      cartProvider.clearLocalCart();
-                                      ordersProvider.fetchOrders();
-                                      await Fluttertoast.showToast(
-                                        msg: "Your order has been placed",
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.CENTER,
-                                      );
-                                    } catch (error) {
-                                      GlobalMethods.errorDialog(
-                                          subtitle: error.toString(), context: ctx);
-                                    } finally {}
-                                  });*/
-                                  /////
+                                  await FirebaseFirestore.instance
+                                      .collection('orders')
+                                      .doc(orderId)
+                                      .set({
+                                    'orderId': orderId,
+                                    'userId': user.uid,
+                                    'productId': "${user.uid}$orderId",
+                                    'price': 1971,
+                                    'totalPrice': 1971,
+                                    'quantity': int.parse(_quantityTextController.text),
+                                    'imageUrl': getCurrProduct.imageUrl,
+                                    'userName': user.displayName,
+                                    'orderDate': Timestamp.now(),
+                                  });
+                                  await cartProvider.clearOnlineCart();
+                                  cartProvider.clearLocalCart();
 
 
 
 
 
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CheckOutScreen()));
+
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const CheckOutScreen()));
 
                                 },
                                 child: Padding(

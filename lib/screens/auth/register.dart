@@ -67,6 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         final _uid = user!.uid;
         user.updateDisplayName(_fullNameController.text);
         user.reload();
+        user.sendEmailVerification();
         await FirebaseFirestore.instance.collection('users').doc(_uid).set({
           'id': _uid,
           'name': _fullNameController.text,
@@ -105,6 +106,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     Color color = Utils(context).color;
 
     return Scaffold(
+      backgroundColor: Colors.black.withOpacity(0.8),
       body: LoadingManager(
         isLoading: _isLoading,
         child: Stack(

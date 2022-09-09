@@ -37,7 +37,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             ),
           ),
           DrawerListTile(
-            title: "Post Ads",
+            title: "Post",
             press: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
@@ -56,16 +56,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       builder: (context) => const AllProductList()));
             },
             icon: IconlyBold.scan,
-          ),
-          DrawerListTile(
-            title: "Requests",
-            press: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const AllOrderList()));
-            },
-            icon: IconlyBold.info_square,
           ),
         ],
       ),

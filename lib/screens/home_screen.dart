@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextWidget(
-                    text: 'Our products',
+                    text: 'Homes and Hotels',
                     color: color,
                     textSize: 22,
                     isTitle: true,
