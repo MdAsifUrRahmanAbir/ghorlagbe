@@ -62,8 +62,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(
-              height: 6,
+              height: 12,
             ),
+
+
+            Divider(thickness : 4,),
 
             ///view all button
             Row(
@@ -98,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     children: [
                       TextWidget(
-                        text: 'On toLet'.toUpperCase(),
+                        text: 'On DISCOUNT'.toUpperCase(),
                         color: Colors.red,
                         textSize: 22,
                         isTitle: true,
@@ -133,6 +136,40 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+
+
+            ///view all button
+            /*Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: TextButton(
+                    onPressed: () {
+                      GlobalMethods.navigateTo(
+                          ctx: context, routeName: OnSaleScreen.routeName);
+                    },
+                    child: TextWidget(
+                      text: 'View all',
+                      maxLines: 1,
+                      color: Colors.blue,
+                      textSize: 20,
+                    ),
+                  ),
+                ),
+              ],
+            ),*/
+
+            Divider(thickness : 4,),
+
+            const SizedBox(
+              height: 6,
+            ),
+
+
+
+
+
             const SizedBox(
               height: 10,
             ),
@@ -184,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: const FeedsWidget(),
                 );
               }),
-            )
+            ),
           ],
         ),
       ),
