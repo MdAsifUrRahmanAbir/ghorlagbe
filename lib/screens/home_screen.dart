@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
 
-            Divider(thickness : 4,),
+            Divider(thickness : 2,),
 
             ///view all button
             Row(
@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),*/
 
-            Divider(thickness : 4,),
+            Divider(thickness : 2,),
 
             const SizedBox(
               height: 6,
