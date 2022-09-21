@@ -29,3 +29,29 @@ class AllProductList extends StatelessWidget {
     ));
   }
 }
+
+
+/*
+GlobalMethods.warningDialog(
+                                      title: 'Delete?',
+                                      subtitle: 'Press okay to confirm',
+
+                                      fct: () async {
+                                        await FirebaseFirestore.instance
+                                            .collection('products')
+                                            .doc(widget.id)
+                                            .delete();
+                                        await Fluttertoast.showToast(
+                                          msg: "Product has been deleted",
+                                          toastLength: Toast.LENGTH_LONG,
+                                          gravity: ToastGravity.CENTER,
+                                          timeInSecForIosWeb: 1,
+                                        );
+                                        while (Navigator.canPop(context)) {
+                                          Navigator.pop(context);
+                                        }
+                                      },
+
+                                      context: context
+                                  );// glo
+ */
