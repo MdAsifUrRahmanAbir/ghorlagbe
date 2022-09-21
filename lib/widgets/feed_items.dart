@@ -59,30 +59,6 @@ class _FeedsWidgetState extends State<FeedsWidget> {
             Navigator.pushNamed(context, ProductDetails.routeName,
                 arguments: productModel.id,
             );
-
-
-
-            /*Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => ProductDetails(
-                  id: widget.,
-                  title: title,
-                  description: description,
-                  map: map,
-                  mapUrl: map,
-                  price: price,
-                  salePrice: salePrice.toDouble(),
-                  productCat: productCat,
-                  imageUrl: imageUrl == null
-                      ? 'https://www.lifepng.com/wp-content/uploads/2020/11/Apricot-Large-Single-png-hd.png'
-                      : imageUrl!,
-                  isOnSale: isOnSale,
-                  isPiece: isPiece,
-                ),
-              ),
-            );*/
-
-
           },
           borderRadius: BorderRadius.circular(12),
           child: Column(
@@ -107,19 +83,6 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                 ),
               ),
             ),
-                // Align(
-                //   alignment: Alignment.centerLeft,
-                //   child: Padding(
-                //     padding: const EdgeInsets.symmetric(horizontal: 10),
-                //     child: TextWidget(
-                //       text: productModel.description,
-                //       color: color,
-                //       maxLines: 1,
-                //       textSize: 14,
-                //       isTitle: true,
-                //     ),
-                //   ),
-                // ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(

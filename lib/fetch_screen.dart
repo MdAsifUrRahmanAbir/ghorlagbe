@@ -21,7 +21,7 @@ class FetchScreen extends StatefulWidget {
 }
 
 class _FetchScreenState extends State<FetchScreen> {
-  List<String> images = Constss.authImagesPaths;
+  List<String> images = Constss.offerImages;
 //////
   late StreamSubscription subscription;
   bool isDeviceConnected = false;

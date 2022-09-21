@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-class ProductModel with ChangeNotifier{
-  final String id, title, description,map,call, imageUrl, productCategoryName, authEmail;
+class MyProductModel with ChangeNotifier{
+  final String id, title, description,map,call, imageUrl, productCategoryName;
   final double price, salePrice;
   final bool isOnSale, isPiece;
 
-  ProductModel(
+  MyProductModel(
       {required this.id,
       required this.title,
-      required this.authEmail,
       required this.description,
         required this.map,
         required this.call,

@@ -14,6 +14,7 @@ import 'package:demo/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/dark_theme_provider.dart';
+import 'PostScreen/all_product_screen.dart';
 import 'PostScreen/main_page.dart';
 import 'auth/login.dart';
 
@@ -148,13 +149,27 @@ class _UserScreenState extends State<UserScreen> {
                       },
                       color: color,
                     ),
-                    _listTiles(
-                      title: 'Post Ads',
-                      icon: IconlyLight.work,
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
-                      },
-                      color: color,
+                    Visibility(
+                      visible: _email != null,
+                      child: _listTiles(
+                        title: 'Post Ads',
+                        icon: IconlyLight.work,
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
+                        },
+                        color: color,
+                      ),
+                    ),
+                    Visibility(
+                      visible: _email != null,
+                      child: _listTiles(
+                        title: 'My Ads',
+                        icon: IconlyLight.work,
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => AllProductList()));
+                        },
+                        color: color,
+                      ),
                     ),
                     _listTiles(
                       title: 'Favourite Home',

@@ -2,8 +2,8 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo/inner_screens/drawer_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../controllers/MenuController.dart';
 import '../../services/global_methods.dart';
 import '../../services/utils.dart';
 import '../../widgets/buttons.dart';
@@ -95,53 +93,25 @@ class _MainPageState extends State<MainPage> {
           _isLoading = true;
         });
 
-        ///
-        // fb.StorageReference storageRef =
-        //     fb.storage().ref().child('productsImages').child(_uuid + 'jpg');
-        // final fb.UploadTaskSnapshot uploadTaskSnapshot =
-        //     await storageRef.put(kIsWeb ? webImage : _pickedImage).future;
-        //Uri imageUri = await uploadTaskSnapshot.ref.getDownloadURL();
-
-        ///
         final storageRef = FirebaseStorage.instance.ref();
         Reference? imageRef = storageRef.child('productsImages');
         final filename = _uuid + 'jpg';
         final spaceRef = imageRef.child(filename);
         final uploadTask = await spaceRef.putFile(_pickedImage!);
         final imageUri = await uploadTask.ref.getDownloadURL();
-        //
-        // uploadTask.snapshotEvents.listen((event) async{
-        //   switch (event.state) {
-        //     case TaskState.running:
-        //       final progress = 100.0 * (event.bytesTransferred / event.totalBytes);
-        //       print("#TASK STATE: Upload is $progress% complete.");
-        //       break;
-        //     case TaskState.paused:
-        //       print("#TASK STATE: Upload is paused.");
-        //       break;
-        //     case TaskState.canceled:
-        //       print("#TASK STATE: Upload was canceled");
-        //       break;
-        //     case TaskState.error:
-        //       print("#TASK STATE: Error");
-        //       break;
-        //     case TaskState.success:
-        //         print('#TASK STATE: Complete');
-        //
-        //       break;
-        //   }
-        // });
+
+        final authEmail = FirebaseAuth.instance.currentUser?.email;
 
 
         await FirebaseFirestore.instance.collection('products').doc(_uuid).set({
           'id': _uuid,
+          'authEmail': authEmail,
           'title': _titleController.text,
           'description': _descriptionController.text,
           'price': _priceController.text,
 
           //new added part
           'map': _mapUrlController.text,
-          //'lng': _lngController.text,
           //new added part
 
           //new added
@@ -158,7 +128,7 @@ class _MainPageState extends State<MainPage> {
         });
         _clearForm();
         Fluttertoast.showToast(
-          msg: "Product uploaded succefully",
+          msg: "Product uploaded Successfully",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
@@ -170,7 +140,7 @@ class _MainPageState extends State<MainPage> {
 
 
         //new added
-        Navigator.push(context, MaterialPageRoute(builder: (context) => BottomBarScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const BottomBarScreen()));
         //new added
 
 
@@ -220,7 +190,6 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Utils(context).getTheme;
     final color = Utils(context).color;
     final _scaffoldColor = Theme.of(context).scaffoldBackgroundColor;
     Size size = Utils(context).getScreenSize;
@@ -237,22 +206,14 @@ class _MainPageState extends State<MainPage> {
       ),
     );
     return Scaffold(
-      // key: context.read<MenuController>().getAddProductscaffoldKey,
-      // drawer: const DrawerScreen(),
       appBar: AppBar(
-        title: const Text("Post Your Add", style: TextStyle(color: Colors.red),),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
+        title: const Text("Post Your Ad", style: TextStyle(color: Colors.red),),
       ),
       body: LoadingManager(
         isLoading: _isLoading,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // if (Responsive.isDesktop(context))
-            //   const Expanded(
-            //     child: SideMenu(),
-            //   ),
             Expanded(
               flex: 5,
               child: SingleChildScrollView(

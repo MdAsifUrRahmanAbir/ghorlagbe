@@ -38,6 +38,7 @@ class ProductsProvider with ChangeNotifier {
               //new added
               call: element.get('call'),
               //new added
+              authEmail: element.get('authEmail') ?? 'NULL',
 
 
               imageUrl: element.get('imageUrl'),
@@ -57,6 +58,10 @@ class ProductsProvider with ChangeNotifier {
 
   ProductModel findProdById(String productId) {
     return _productsList.firstWhere((element) => element.id == productId);
+  }
+
+  List<ProductModel>  getUserProducts(String authEmail) {
+    return _productsList.where((element) => element.authEmail == authEmail).toList();
   }
 
   List<ProductModel> findByCategory(String categoryName) {

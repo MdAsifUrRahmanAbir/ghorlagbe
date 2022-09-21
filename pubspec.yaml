@@ -55,5 +55,5 @@ flutter:
   assets:
     - assets/images/
     - assets/images/cat/
-    - assets/images/landing/
+#    - assets/images/landing/
     - assets/images/offres/

@@ -84,12 +84,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             Swiper(
               itemBuilder: (BuildContext context, int index) {
                 return Image.asset(
-                  Constss.authImagesPaths[index],
+                  Constss.offerImages[index],
                   fit: BoxFit.cover,
                 );
               },
               autoplay: true,
-              itemCount: Constss.authImagesPaths.length,
+              itemCount: Constss.offerImages.length,
 
               // control: const SwiperControl(),
             ),
