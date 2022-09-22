@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:demo/widgets/heart_btn.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
@@ -48,20 +47,8 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
 
-
-  //new added part
-  /*Future _mapurlLancher() async {
-    if (!await (launch(mapUrl))) throw 'Could not find ${widget.mapUrl}';
-  }*/
-//new added part
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
-    Size size = Utils(context).getScreenSize;
     final Color color = Utils(context).color;
 
     final cartProvider = Provider.of<CartProvider>(context);
@@ -113,20 +100,17 @@ class _ProductDetailsState extends State<ProductDetails> {
             backgroundColor: Theme.of(context).scaffoldBackgroundColor),
         body: Column(
             children: [
-          Flexible(
-            flex: 2,
-            child: FancyShimmerImage(
-              imageUrl: getCurrProduct.imageUrl,
-              boxFit: BoxFit.fill,
-              //width: size.width,
-              // height: screenHeight * .4,
-              width: double.infinity,
-              height: 300,
-            ),
+          FancyShimmerImage(
+            imageUrl: getCurrProduct.imageUrl,
+            boxFit: BoxFit.fill,
+            //width: size.width,
+            // height: screenHeight * .4,
+            width: double.infinity,
+            height: 300,
           ),
 
 
-          SizedBox(height: 5,),
+          const SizedBox(height: 5,),
 
           Flexible(
             flex: 3,
@@ -148,13 +132,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Flexible(
-                            child: TextWidget(
-                              text: getCurrProduct.title,
-                              color: color,
-                              textSize: 25,
-                              isTitle: true,
-                            ),
+                          TextWidget(
+                            text: getCurrProduct.title,
+                            color: color,
+                            textSize: 25,
+                            isTitle: true,
                           ),
                           HeartBTN(
                             productId: getCurrProduct.id,
@@ -167,7 +149,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
 
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     Padding(
                       padding: const EdgeInsets.only(left: 30,right: 30),
                       child: Container(
@@ -178,24 +160,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                           borderRadius: BorderRadius.circular(6),
                           color: Colors.white
                         ),
-                        child: Flexible(
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Text(getCurrProduct.description,style: TextStyle(color: Colors.black),),
-                          ),
-
-                          /*TextWidget(
-                            text: getCurrProduct.description,
-                            color: Colors.black,
-                            textSize: 18,
-                            isTitle: true,
-                          ),*/
+                        child: Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Text(getCurrProduct.description,style: const TextStyle(color: Colors.black),),
                         ),
                       ),
                     ),
 
 
-                    SizedBox(height: 16,),
+                    const SizedBox(height: 16,),
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 30, right: 30),
@@ -346,7 +319,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
 
-                    SizedBox(height: 22,),
+                    const SizedBox(height: 22,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -365,13 +338,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                               color: Colors.blue,
                             ),
 
-                            child: Icon(Icons.call,color: Colors.white,),
+                            child: const Icon(Icons.call,color: Colors.white,),
                           ),
                         ),
 
 
 
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         InkWell(
                           onTap: (){
                             setState(() {
@@ -388,7 +361,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                              children: const [
                                 Icon(Icons.location_pin,color: Colors.white,),
                                 Text("Directions",style: TextStyle(color: Colors.white),),
                               ],
@@ -405,7 +378,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
 
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     //const Spacer(),
                     Container(
                       width: double.infinity,
@@ -459,63 +432,61 @@ class _ProductDetailsState extends State<ProductDetails> {
                           const SizedBox(
                             width: 8,
                           ),
-                          Flexible(
-                            child: Material(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(10),
-                              child: InkWell(
-                                onTap: ()async{
-                                  final User? user =
-                                      authInstance.currentUser;
+                          Material(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(10),
+                            child: InkWell(
+                              onTap: ()async{
+                                final User? user =
+                                    authInstance.currentUser;
 
-                                  if (user == null) {
-                                    GlobalMethods.errorDialog(
-                                        subtitle:
-                                        'No user found, Please login first',
-                                        context: context);
-                                    return;
-                                  }
-
+                                if (user == null) {
+                                  GlobalMethods.errorDialog(
+                                      subtitle:
+                                      'No user found, Please login first',
+                                      context: context);
+                                  return;
+                                }
 
 
-                                  ///
-                                  //User? user = authInstance.currentUser;
-                                  final orderId = const Uuid().v4();
 
-                                  await FirebaseFirestore.instance
-                                      .collection('orders')
-                                      .doc(orderId)
-                                      .set({
-                                    'orderId': orderId,
-                                    'userId': user.uid,
-                                    'productId': "${user.uid}$orderId",
-                                    'price': 1971,
-                                    'totalPrice': 1971,
-                                    'quantity': int.parse(_quantityTextController.text),
-                                    'imageUrl': getCurrProduct.imageUrl,
-                                    'userName': user.displayName,
-                                    'orderDate': Timestamp.now(),
-                                  });
-                                  await cartProvider.clearOnlineCart();
-                                  cartProvider.clearLocalCart();
+                                ///
+                                //User? user = authInstance.currentUser;
+                                final orderId = const Uuid().v4();
 
+                                await FirebaseFirestore.instance
+                                    .collection('orders')
+                                    .doc(orderId)
+                                    .set({
+                                  'orderId': orderId,
+                                  'userId': user.uid,
+                                  'productId': "${user.uid}$orderId",
+                                  'price': 1971,
+                                  'totalPrice': 1971,
+                                  'quantity': int.parse(_quantityTextController.text),
+                                  'imageUrl': getCurrProduct.imageUrl,
+                                  'userName': user.displayName,
+                                  'orderDate': Timestamp.now(),
+                                });
+                                await cartProvider.clearOnlineCart();
+                                cartProvider.clearLocalCart();
 
 
 
 
 
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const CheckOutScreen()));
 
-                                },
-                                child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    //getCurrProduct.isPiece?Container():
-                                    child: TextWidget(
-                                        text:
-                                        getCurrProduct.isPiece? 'BUY' : 'GET RENT',
-                                        color: Colors.white,
-                                        textSize: 18)),
-                              ),
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const CheckOutScreen()));
+
+                              },
+                              child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  //getCurrProduct.isPiece?Container():
+                                  child: TextWidget(
+                                      text:
+                                      getCurrProduct.isPiece? 'BUY' : 'GET RENT',
+                                      color: Colors.white,
+                                      textSize: 18)),
                             ),
                           ),
                         ],
