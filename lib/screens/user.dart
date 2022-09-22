@@ -164,7 +164,7 @@ class _UserScreenState extends State<UserScreen> {
                       visible: _email != null,
                       child: _listTiles(
                         title: 'My Ads',
-                        icon: IconlyLight.work,
+                        icon: IconlyLight.document,
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => AllProductList()));
                         },
