@@ -21,7 +21,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   final Completer<WebViewController> _controller = Completer<WebViewController>();
   late WebViewController  controllerGlobal;
-  // var baseUrl = 'https://sandbox.sslcommerz.com/EasyCheckOut/testcdee41ffc880ccc469e0cae80428a656f58';
   var baseUrl = 'https://sandbox.sslcommerz.com/EasyCheckOut/testcdedd999ea3eb0dc35aa9350e0395941508';
   // var baseUrl = 'https://dummypay.publicdemo.xyz/';
   bool isLoading = true;
@@ -53,22 +52,21 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 },
 
                 onPageStarted: (String url) {
-                  print('Page started loading: $url');
                   setState(() {
                     isLoading = true;
                     if(url == 'https://dummypay.publicdemo.xyz/index.php?success=true') {
                       isLoading = false;
                       showSnackBar('Payment Success');
                       Navigator.pushReplacement(
-                          context, MaterialPageRoute(builder: (context) => BottomBarScreen()));
+                          context, MaterialPageRoute(builder: (context) => const BottomBarScreen()));
                     }else if(url == 'https://dummypay.publicdemo.xyz/index.php?cancel=true') {
                       showSnackBar('Payment Canceled');
                       Navigator.pushReplacement(
-                          context, MaterialPageRoute(builder: (context) => BottomBarScreen()));
+                          context, MaterialPageRoute(builder: (context) => const BottomBarScreen()));
                     }else if(url == 'https://dummypay.publicdemo.xyz/index.php?cancel=true') {
                       showSnackBar('Payment Canceled');
                       Navigator.pushReplacement(
-                          context, MaterialPageRoute(builder: (context) => BottomBarScreen()));
+                          context, MaterialPageRoute(builder: (context) => const BottomBarScreen()));
                     }
                   });
 
@@ -79,31 +77,30 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   if(_isSuccess) {
                     showSnackBar('Payment Success');
                     Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => BottomBarScreen()));
+                        context, MaterialPageRoute(builder: (context) => const BottomBarScreen()));
                   }else if(_isFailed) {
                     showSnackBar('Payment Failed');
                     Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => BottomBarScreen()));
+                        context, MaterialPageRoute(builder: (context) => const BottomBarScreen()));
                   }else if(_isCancel) {
                     showSnackBar('Payment Canceled');
                     Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => BottomBarScreen()));
+                        context, MaterialPageRoute(builder: (context) => const BottomBarScreen()));
                   }
                 },
 
                 onPageFinished: (String url) {
-                  print('Page finished loading: $url');
                   setState(() {
                     isLoading = false;
                     if(url == 'https://dummypay.publicdemo.xyz/index.php?success=true') {
                       showSnackBar('Payment Success');
                       Navigator.pushReplacement(
-                          context, MaterialPageRoute(builder: (context) => BottomBarScreen()));
+                          context, MaterialPageRoute(builder: (context) => const BottomBarScreen()));
                     }else if (url == 'https://sandbox.sslcommerz.com/gwprocess/v4/warning.php'){
                       isLoading = false;
                       showSnackBar('Payment Success');
                       Navigator.pushReplacement(
-                          context, MaterialPageRoute(builder: (context) => BottomBarScreen()));
+                          context, MaterialPageRoute(builder: (context) => const BottomBarScreen()));
                       // https://sandbox.sslcommerz.com/gwprocess/v4/warning.php
                     }
                   });

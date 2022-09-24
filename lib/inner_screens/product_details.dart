@@ -64,7 +64,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     String mapUrl = getCurrProduct.map;
     //new added part
     Future _mapurlLancher() async {
-      if (!await (launch(mapUrl))) throw 'Could not find ${mapUrl}';
+      if (!await (launch(mapUrl))) throw 'Could not find $mapUrl';
     }
 //new added part
 
@@ -153,16 +153,19 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Padding(
                       padding: const EdgeInsets.only(left: 30,right: 30),
                       child: Container(
-
-                        height: 110,
+                        height: 100,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
                           color: Colors.white
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Text(getCurrProduct.description,style: const TextStyle(color: Colors.black),),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Text(getCurrProduct.description,
+                              style: const TextStyle(color: Colors.black, ),),
+                          ),
                         ),
                       ),
                     ),
@@ -280,45 +283,6 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
 
-
-
-
-
-
-                    //SizedBox(height: 2,),
-                    //new added part
-                    /*InkWell(
-                      onTap: (){
-                        setState(() {
-                          _mapurlLancher();
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 25,right: 25,top: 10,bottom: 10),
-                        child: Card(
-                          color: Colors.blue,
-                          child: ListTile(
-                            //leading: Icon(Icons.location_pin),
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.location_pin),
-                                SizedBox(width: 10,),
-                                Text("Directions"),
-                              ],
-                            ),
-                            //trailing: FaIcon(FontAwesomeIcons.handPointer,color: Colors.amber,),
-                          ),
-                        ),
-                      ),
-                    ),*/
-                    //new added part
-
-
-
-
-
-
                     const SizedBox(height: 22,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -327,7 +291,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           onTap: (){
                             setState(() {
                               //_mapurlLancher();
-                              launch('tel:${call}');
+                              launch('tel:$call');
                             });
                           },
                           child: Container(

@@ -1,20 +1,14 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:demo/models/products_model.dart';
 import 'package:demo/providers/cart_provider.dart';
 import 'package:demo/widgets/price_widget.dart';
 import 'package:demo/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../consts/firebase_consts.dart';
-import '../inner_screens/on_sale_screen.dart';
 import '../inner_screens/product_details.dart';
 import '../providers/wishlist_provider.dart';
-import '../services/global_methods.dart';
 import '../services/utils.dart';
-import 'heart_btn.dart';
 
 class FeedsWidget extends StatefulWidget {
   const FeedsWidget({Key? key}) : super(key: key);
@@ -43,12 +37,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
     Size size = Utils(context).getScreenSize;
     final productModel = Provider.of<ProductModel>(context);
     //final productModel1 = Provider.of<ProductModel>(context);
-    final cartProvider = Provider.of<CartProvider>(context);
-    bool? _isInCart = cartProvider.getCartItems.containsKey(productModel.id);
     final wishlistProvider = Provider.of<WishlistProvider>(context);
-    bool? _isInWishlist =
-        wishlistProvider.getWishlistItems.containsKey(productModel.id);
-    print(productModel.description);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
@@ -62,7 +51,6 @@ class _FeedsWidgetState extends State<FeedsWidget> {
           },
           borderRadius: BorderRadius.circular(12),
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
             FancyShimmerImage(
               imageUrl: productModel.imageUrl,
@@ -88,44 +76,21 @@ class _FeedsWidgetState extends State<FeedsWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Flexible(
-                    flex: 3,
-                    child: PriceWidget(
-                      salePrice: productModel.salePrice,
-                      price: productModel.price,
-                      textPrice: _quantityTextController.text,
-                      isOnSale: productModel.isOnSale,
-                    ),
+                  PriceWidget(
+                    salePrice: productModel.salePrice,
+                    price: productModel.price,
+                    textPrice: _quantityTextController.text,
+                    isOnSale: productModel.isOnSale,
                   ),
-                  Flexible(
-                    child: Row(
-                      children: [
-                        Flexible(
-                          flex: 6,
-                          child: FittedBox(
-                            child: TextWidget(
-                              text: productModel.productCategoryName,
-                              color: Colors.redAccent,
-                              textSize: 16,
-                              isTitle: true,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  TextWidget(
+                    text: productModel.productCategoryName,
+                    color: Colors.redAccent,
+                    textSize: 16,
+                    isTitle: true,
                   )
                 ],
               ),
             ),
-
-                TextWidget(
-                  text: productModel.description,
-                  color: color,
-                  maxLines: 1,
-                  textSize: 14,
-                  isTitle: true,
-                ),
-
           ]),
         ),
       ),

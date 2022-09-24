@@ -26,7 +26,7 @@ class OnSaleScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: TextWidget(
           text: 'Houses on sale',
-          color: color,
+          color: Colors.red,
           textSize: 24.0,
           isTitle: true,
         ),

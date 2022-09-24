@@ -32,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final Utils utils = Utils(context);
-    final themeState = utils.getTheme;
     final Color color = Utils(context).color;
     Size size = utils.getScreenSize;
     final productProviders = Provider.of<ProductsProvider>(context);
@@ -101,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     children: [
                       TextWidget(
-                        text: 'On DISCOUNT'.toUpperCase(),
+                        text: 'top WANTED'.toUpperCase(),
                         color: Colors.red,
                         textSize: 22,
                         isTitle: true,
@@ -110,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 5,
                       ),
                       const Icon(
-                        IconlyLight.discount,
+                        IconlyLight.image,
                         color: Colors.red,
                       ),
                     ],

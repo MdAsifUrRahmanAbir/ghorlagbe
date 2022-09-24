@@ -1,4 +1,3 @@
-import 'package:demo/models/products_model.dart';
 
 class Constss {
   static final List<String> offerImages = [
