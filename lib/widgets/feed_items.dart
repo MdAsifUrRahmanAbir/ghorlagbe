@@ -1,13 +1,11 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/models/products_model.dart';
-import 'package:demo/providers/cart_provider.dart';
 import 'package:demo/widgets/price_widget.dart';
 import 'package:demo/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../inner_screens/product_details.dart';
-import '../providers/wishlist_provider.dart';
 import '../services/utils.dart';
 
 class FeedsWidget extends StatefulWidget {
@@ -37,7 +35,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
     Size size = Utils(context).getScreenSize;
     final productModel = Provider.of<ProductModel>(context);
     //final productModel1 = Provider.of<ProductModel>(context);
-    final wishlistProvider = Provider.of<WishlistProvider>(context);
+    // final wishlistProvider = Provider.of<WishlistProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(

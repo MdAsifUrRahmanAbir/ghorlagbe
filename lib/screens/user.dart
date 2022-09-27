@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo/screens/support_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -181,12 +182,14 @@ class _UserScreenState extends State<UserScreen> {
                       color: color,
                     ),
                     _listTiles(
-                      title: 'Viewed',
-                      icon: IconlyLight.show,
+                      title: 'Support',
+                      icon: IconlyLight.discovery,
                       onPressed: () {
-                        GlobalMethods.navigateTo(
-                            ctx: context,
-                            routeName: ViewedRecentlyScreen.routeName);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SupportScreen(),
+                          ),
+                        );
                       },
                       color: color,
                     ),
